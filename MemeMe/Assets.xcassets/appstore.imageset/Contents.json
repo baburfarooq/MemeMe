@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "MemeGenerator_180 copy.png",
+      "filename" : "appstore.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "MemeGenerator_180 copy@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "MemeGenerator_180 copy@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

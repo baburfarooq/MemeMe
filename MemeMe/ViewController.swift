@@ -32,13 +32,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.topTextField.delegate = self
         self.bottomTextField.delegate = self
         
+        topTextField.borderStyle = .none
+        bottomTextField.borderStyle = .none
+        
+        
     }
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.strokeColor: UIColor.red,
+        NSAttributedString.Key.strokeColor: UIColor.black,
         NSAttributedString.Key.foregroundColor: UIColor.white,
         NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSAttributedString.Key.strokeWidth:  -2
+        NSAttributedString.Key.strokeWidth:  -2.0
         
     ]
     

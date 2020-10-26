@@ -83,6 +83,7 @@
                         <outlet property="cancelButton" destination="Ba5-Q6-XJ5" id="tHn-oO-VYu"/>
                         <outlet property="imagePickerView" destination="oai-uO-Z3H" id="98y-IZ-Ea5"/>
                         <outlet property="shareButton" destination="fIW-om-Nne" id="bDI-Of-urV"/>
+                        <outlet property="toolbarView" destination="Ggg-hb-Izr" id="d2r-7c-BzX"/>
                         <outlet property="topTextField" destination="4Ev-HB-32v" id="gHw-wY-Qvy"/>
                     </connections>
                 </viewController>

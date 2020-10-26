@@ -20,6 +20,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTextField(topTextField, text: "Top")
+        setupTextField(topTextField, text: "Bottom")
+        
+    }
+    
+    func setupTextField(_ textField: UITextField, text: String) {
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
         
@@ -34,7 +40,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         topTextField.borderStyle = .none
         bottomTextField.borderStyle = .none
-        
     }
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
@@ -159,6 +164,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return memedImage
     }
     
+    
     struct Meme {
         let topText: String
         let bottomText: String
@@ -175,8 +181,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let activityVC = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         
         // pass the ActivityViewController a memedImage as an activity item
-        activityVC.completionWithItemsHandler = { activity, success, items, error in
+        activityVC.completionWithItemsHandler = { (activity, completed, items, error) in
+            if completed {
             self.save()
+            }
             self.dismiss(animated: true, completion: nil)
         }
         //present the VC
@@ -191,5 +199,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
         
     }
+    
     
 }

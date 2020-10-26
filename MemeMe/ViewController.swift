@@ -35,7 +35,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         topTextField.borderStyle = .none
         bottomTextField.borderStyle = .none
         
-        
     }
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [

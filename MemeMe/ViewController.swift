@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
+    //MARK: - App properties
+    
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
@@ -20,17 +22,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTextField(topTextField, text: "Top")
-        setupTextField(topTextField, text: "Bottom")
+        setupTextField(topTextField, text: "TOP")
+        setupTextField(bottomTextField, text: "BOTTOM")
         
     }
-    
-    func setupTextField(_ textField: UITextField, text: String) {
+    //MARK: - TextField Method
+    func setupTextField(_ textField: UITextField, text: String){
+        
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
         
-        topTextField.text = "Top"
-        bottomTextField.text = "Bottom"
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
         
         topTextField.textAlignment = .center
         bottomTextField.textAlignment = .center
@@ -47,7 +50,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSAttributedString.Key.foregroundColor: UIColor.white,
         NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSAttributedString.Key.strokeWidth:  -2.0
-        
     ]
     
     // Disable Camera Button if camera is not available
@@ -70,7 +72,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if bottomTextField.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
         }
-        
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
@@ -130,13 +131,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // Text field is ready for editing
-    @IBAction func clearTextField(_ sender: Any){
-        textFieldDidBeginEditing(topTextField)
-    }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text == "TOP" || textField.text == "BOTTOM" {
         textField.text = ""
-        
+        }
     }
     
     func save() {
@@ -164,7 +162,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return memedImage
     }
     
-    
     struct Meme {
         let topText: String
         let bottomText: String
@@ -181,8 +178,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let activityVC = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         
         // pass the ActivityViewController a memedImage as an activity item
-        activityVC.completionWithItemsHandler = { (activity, completed, items, error) in
-            if completed {
+        activityVC.completionWithItemsHandler = {
+            (activity, success, items, error) in
+            if success {
             self.save()
             }
             self.dismiss(animated: true, completion: nil)
@@ -199,6 +197,5 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
         
     }
-    
     
 }

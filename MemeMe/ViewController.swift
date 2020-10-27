@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CreateMemeViewController.swift
 //  MemeMe
 //
 //  Created by Babur Farooq on 10/24/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     //MARK: - App properties
     
@@ -22,27 +22,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTextField(topTextField, text: "TOP")
-        setupTextField(bottomTextField, text: "BOTTOM")
+        setupTextField(topTextField)
+        setupTextField(bottomTextField)
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
     }
     //MARK: - TextField Method
-    func setupTextField(_ textField: UITextField, text: String){
+    func setupTextField(_ textField: UITextField){
         
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
-        
-        self.topTextField.delegate = self
-        self.bottomTextField.delegate = self
-        
-        topTextField.borderStyle = .none
-        bottomTextField.borderStyle = .none
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.text = "TOP"
+        textField.text = "BOTTOM"
+        textField.textAlignment = .center
+        textField.delegate = self
+        textField.borderStyle = .none
     }
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
@@ -56,7 +49,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         shareButton.isEnabled = false
     }
     
@@ -133,7 +125,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Text field is ready for editing
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text == "TOP" || textField.text == "BOTTOM" {
-        textField.text = ""
+            textField.text = ""
         }
     }
     
@@ -146,8 +138,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         // Hide toolbar and navbar
         
-        self.navigationController?.navigationBar.isHidden = true
-        self.tabBarController?.tabBar.isHidden = true
+        hideToolBars(true)
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -156,10 +147,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        self.navigationController?.navigationBar.isHidden = false
-        self.tabBarController?.tabBar.isHidden = false
-    
+        hideToolBars(false)
+        
         return memedImage
+    }
+    
+    func hideToolBars(_ hide: Bool) {
+        self.navigationController?.navigationBar.isHidden = hide
+        self.tabBarController?.tabBar.isHidden = hide
+        
     }
     
     struct Meme {
@@ -181,7 +177,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityVC.completionWithItemsHandler = {
             (activity, success, items, error) in
             if success {
-            self.save()
+                self.save()
             }
             self.dismiss(animated: true, completion: nil)
         }
@@ -199,3 +195,4 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
 }
+
